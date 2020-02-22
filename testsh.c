@@ -96,7 +96,7 @@ char *replace(char *big, char *pat)
     char *p0 = big;
     char *p1 = big;
     
-    //fprintf(2, "big=%s\n", big);
+    // fprintf(2, "big=%s\n", big);
     // only consider the first line
     while (p0 < end) {
         if (*p0 != '\n')
@@ -124,7 +124,7 @@ char *replace(char *big, char *pat)
         *p1++ = *p0++;
     }
     *p1 = '\0';
-    //fprintf(2, "big=%s\n", big);
+    // fprintf(2, "big=%s\n", big);
     return big;
 }
 
@@ -181,6 +181,8 @@ void get_prefix() {
   char *p = strstr(out + 1, shname);
   if ( p > 0) {
      offset = p - out;
+  } else {
+    offset = strlen(out);
   }
   out[offset] = '\0';
   strcpy(prefix, out);
@@ -237,6 +239,9 @@ one(char *cmd, char *expect, int tight)
   readfile(outfile, out, sizeof(out));
   unlink(outfile);
 
+  // fprintf(2, "testsh: expected=%s|received=%s\n", expect, out);
+
+  // fprintf(2, "prefix=%s\n", prefix);
   replace(out, prefix);
   rstrip(out, "tsh (");
 
